@@ -558,6 +558,10 @@
 	vref-supply = <&vddao_1v8>;
 };
 
+&saradc {
+	status = "okay";
+};
+
 /* SD card */
 &sd_emmc_b {
 	status = "okay";
