@@ -288,3 +288,20 @@
 	pinctrl-0 = <&uart4_xfer &uart4_rts &uart4_cts>;
 	status = "okay";
 };
+
+&u2phy {
+	status = "okay";
+
+	u2phy_host: host-port {
+		phy-supply = <&vcc5v0_otg>;
+		status = "okay";
+	};
+};
+
+&usb_host_ehci {
+	status = "okay";
+};
+
+&usb_host_ohci{
+	status = "okay";
+};
