@@ -151,6 +151,13 @@
 	status = "okay";
 };
 
+&i2s_8ch_0 {
+	assigned-clocks = <&cru SCLK_I2S0_8CH_RX>;
+	assigned-clock-parents = <&cru SCLK_I2S0_8CH_TX_MUX>;
+	rockchip,clk-trcm = <1>;
+	#sound-dai-cells = <0>;
+};
+
 &spi2 {
 	status = "okay";
 	max-freq = <10000000>;
