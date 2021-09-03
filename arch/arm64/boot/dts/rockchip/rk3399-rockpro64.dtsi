@@ -17,6 +17,7 @@
 	};
 
 	chosen {
+		bootargs = "mmc_cmdqueue=0 earlycon=uart8250,mmio32,0xff1a0000";
 		stdout-path = "serial2:1500000n8";
 	};
 
@@ -729,6 +730,7 @@
 
 &sdhci {
 	bus-width = <8>;
+	keep-power-in-suspend;
 	mmc-hs200-1_8v;
 	non-removable;
 	status = "okay";
