@@ -12,7 +12,7 @@
 	compatible = "radxa,rockpis", "rockchip,rk3308";
 
 	chosen {
-		stdout-path = "serial0:1500000n8";
+		stdout-path = "serial2:1500000n8";
 	};
 
 	leds {
@@ -276,6 +276,10 @@
 };
 
 &uart0 {
+	status = "okay";
+};
+
+&uart2 {
 	status = "okay";
 };
 
