@@ -64,6 +64,10 @@
 	rx_delay = <0x16>;
 };
 
+&rk808 {
+	max-buck-steps-per-change = <4>;
+};
+
 &vcc3v3_sys {
 	vin-supply = <&vcc5v0_core>;
 };
@@ -80,3 +84,4 @@
 	regulator-always-on;
 	vin-supply = <&vdd_5v>;
 };
+
