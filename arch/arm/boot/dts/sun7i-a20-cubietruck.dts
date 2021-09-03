@@ -55,6 +55,7 @@
 
 	aliases {
 		serial0 = &uart0;
+		serial2 = &uart2;
 	};
 
 	chosen {
@@ -334,6 +335,12 @@
 		shutdown-gpios = <&pio 7 18 GPIO_ACTIVE_HIGH>; /* PH18 */
 		max-speed = <1500000>;
 	};
+};
+
+&uart2 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&uart2_cts_rts_pi_pins>, <&uart2_pi_pins>;
+	status = "okay";
 };
 
 &usb_otg {
