@@ -212,6 +212,12 @@
 	status = "okay";
 };
 
+&tsadc {
+	rockchip,hw-tshut-mode = <0>;		/* 0:CRU */
+	rockchip,hw-tshut-polarity = <1>;	/* 1:HIGH */
+	status = "okay";
+};
+
 &uart0 {
 	status = "okay";
 };
