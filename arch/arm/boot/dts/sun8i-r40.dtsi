@@ -747,6 +747,24 @@
 			#thermal-sensor-cells = <1>;
 		};
 
+		codec: codec@1c22c00 {
+			#sound-dai-cells = <1>;
+			compatible = "allwinner,sun8i-h3-codec";
+			reg = <0x01c22c00 0x300>;
+			interrupts = <GIC_SPI 30 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&ccu CLK_BUS_CODEC>, <&ccu CLK_CODEC>;
+			clock-names = "apb", "codec";
+			resets = <&ccu RST_BUS_CODEC>;
+			dmas = <&dma 19>, <&dma 19>;
+			dma-names = "rx", "tx";
+			status = "disabled";
+		};
+
+		codec_analog: codec-analog@1c22f00 {
+			compatible = "allwinner,sun8i-a23-codec-analog";
+			reg = <0x01c22f00 0x4>;
+		};
+
 		uart0: serial@1c28000 {
 			compatible = "snps,dw-apb-uart";
 			reg = <0x01c28000 0x400>;
