@@ -93,6 +93,7 @@
 		led-3 {
 			label = "cubietruck:green:usr";
 			gpios = <&pio 7 7 GPIO_ACTIVE_HIGH>;
+			linux,default-trigger = "mmc0";
 		};
 	};
 
