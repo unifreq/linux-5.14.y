@@ -63,18 +63,11 @@
 		};
 	};
 
-	osc24M: osc24M-clk {
+	osc24M: osc24M_clk {
 		#clock-cells = <0>;
 		compatible = "fixed-clock";
 		clock-frequency = <24000000>;
 		clock-output-names = "osc24M";
-	};
-
-	osc32k_int: osc32k-int {
-		#clock-cells = <0>;
-		compatible = "fixed-clock";
-		clock-frequency = <32768>;
-		clock-output-names = "osc32k-int";
 	};
 
 	pmu {
@@ -129,7 +122,7 @@
 		ccu: clock@3001000 {
 			compatible = "allwinner,sun50i-h616-ccu";
 			reg = <0x03001000 0x1000>;
-			clocks = <&osc24M>, <&osc32k_int>, <&osc32k_int>;
+			clocks = <&osc24M>, <&rtc 0>, <&rtc 2>;
 			clock-names = "hosc", "losc", "iosc";
 			#clock-cells = <1>;
 			#reset-cells = <1>;
@@ -155,7 +148,7 @@
 				     <GIC_SPI 55 IRQ_TYPE_LEVEL_HIGH>,
 				     <GIC_SPI 56 IRQ_TYPE_LEVEL_HIGH>,
 				     <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>;
-			clocks = <&ccu CLK_APB1>, <&osc24M>, <&osc32k_int>;
+			clocks = <&ccu CLK_APB1>, <&osc24M>, <&rtc 0>;
 			clock-names = "apb", "hosc", "losc";
 			gpio-controller;
 			#gpio-cells = <3>;
@@ -654,10 +647,19 @@
 			status = "disabled";
 		};
 
+		rtc: rtc@7000000 {
+			compatible = "allwinner,sun50i-h616-rtc";
+			reg = <0x07000000 0x400>;
+			interrupts = <GIC_SPI 101 IRQ_TYPE_LEVEL_HIGH>,
+				     <GIC_SPI 102 IRQ_TYPE_LEVEL_HIGH>;
+			clock-output-names = "osc32k", "osc32k-out", "iosc";
+			#clock-cells = <1>;
+		};
+
 		r_ccu: clock@7010000 {
 			compatible = "allwinner,sun50i-h616-r-ccu";
 			reg = <0x07010000 0x210>;
-			clocks = <&osc24M>, <&osc32k_int>, <&osc32k_int>,
+			clocks = <&osc24M>, <&rtc 0>, <&rtc 2>,
 				 <&ccu CLK_PLL_PERIPH0>;
 			clock-names = "hosc", "losc", "iosc", "pll-periph";
 			#clock-cells = <1>;
@@ -668,7 +670,7 @@
 			compatible = "allwinner,sun50i-h616-r-pinctrl";
 			reg = <0x07022000 0x400>;
 			interrupts = <GIC_SPI 43 IRQ_TYPE_LEVEL_HIGH>;
-			clocks = <&r_ccu CLK_R_APB1>, <&osc24M>, <&osc32k_int>;
+			clocks = <&r_ccu CLK_R_APB1>, <&osc24M>, <&rtc 0>;
 			clock-names = "apb", "hosc", "losc";
 			gpio-controller;
 			#gpio-cells = <3>;
