@@ -57,7 +57,7 @@
 
 		work_led: led-0 {
 			label = "work";
-			default-state = "on";
+			linux,default-trigger = "heartbeat";
 			gpios = <&gpio0 RK_PB3 GPIO_ACTIVE_HIGH>;
 		};
 
