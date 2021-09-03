@@ -6,6 +6,7 @@
 #include <linux/signal.h>
 #include <linux/slab.h>
 #include <linux/module.h>
+#include <linux/of_net.h>
 #include <linux/netdevice.h>
 #include <linux/etherdevice.h>
 #include <linux/mii.h>
@@ -1700,6 +1701,17 @@ static int determine_ethernet_addr(struct r8152 *tp, struct sockaddr *sa)
 	if (ret < 0) {
 		netif_err(tp, probe, dev, "Get ether addr fail\n");
 	} else if (!is_valid_ether_addr(sa->sa_data)) {
+		/* try to get MAC address from DT */
+		if (tp->udev->dev.of_node) {
+			const u8 *mac = of_get_mac_address(tp->udev->dev.of_node);
+			if (!IS_ERR(mac) && is_valid_ether_addr(mac)) {
+				ether_addr_copy(sa->sa_data, mac);
+				netif_info(tp, probe, dev, "DT mac addr %pM\n",
+					   sa->sa_data);
+				return 0;
+			}
+		}
+
 		netif_err(tp, probe, dev, "Invalid ether addr %pM\n",
 			  sa->sa_data);
 		eth_hw_addr_random(dev);
