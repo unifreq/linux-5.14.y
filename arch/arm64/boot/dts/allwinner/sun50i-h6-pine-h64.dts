@@ -79,6 +79,20 @@
 		gpio = <&r_pio 0 5 GPIO_ACTIVE_HIGH>;
 		enable-active-high;
 	};
+
+	reg_usb_vbus: vbus {
+		compatible = "regulator-fixed";
+		regulator-name = "usb-vbus";
+		regulator-min-microvolt = <5000000>;
+		regulator-max-microvolt = <5000000>;
+		startup-delay-us = <100000>;
+		gpio = <&r_pio 0 5 GPIO_ACTIVE_HIGH>;
+		enable-active-high;
+	};
+};
+
+&dwc3 {
+	status = "okay";
 };
 
 &cpu0 {
@@ -330,5 +344,10 @@
 &usb2phy {
 	usb0_vbus-supply = <&reg_usb_vbus>;
 	usb3_vbus-supply = <&reg_usb_vbus>;
+	status = "okay";
+};
+
+&usb3phy {
+	phy-supply = <&reg_usb_vbus>;
 	status = "okay";
 };
