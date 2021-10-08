@@ -232,7 +232,3 @@
 		reg = <0x12 0x10>;
 	};
 };
-
-&cecb_AO {
-	status = "disabled";
-};
