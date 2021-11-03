@@ -1340,8 +1340,6 @@ int brcmf_attach(struct device *dev)
 
 	/* Link to bus module */
 	drvr->hdrlen = 0;
-	drvr->chan_stats = vzalloc(256 * sizeof(struct brcmf_chan_stats));
-	drvr->num_chan_stats = 256;
 
 	/* Attach and link in the protocol */
 	ret = brcmf_proto_attach(drvr);
@@ -1423,12 +1421,6 @@ void brcmf_detach(struct device *dev)
 
 	if (drvr == NULL)
 		return;
-
-	drvr->num_chan_stats = 0;
-	if (drvr->chan_stats) {
-		vfree(drvr->chan_stats);
-		drvr->chan_stats = NULL;
-	}
 
 #ifdef CONFIG_INET
 	unregister_inetaddr_notifier(&drvr->inetaddr_notifier);
